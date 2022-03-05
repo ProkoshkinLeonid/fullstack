@@ -19,7 +19,7 @@ export class User extends Model<User, UserCreationAttrs> {
     email: string;
 
     @ApiProperty({example: '1234', description: 'Пароль пользователя'})
-    @Column({type: DataType.STRING, allowNull: false})
+    @Column({type: DataType.TEXT, allowNull: false})
     password: string;
 
     @ApiProperty({example: false, description: 'Забанен ли пользователь в системе', required: false})

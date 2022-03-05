@@ -15,6 +15,7 @@ const users_module_1 = require("./users/users.module");
 const roles_module_1 = require("./roles/roles.module");
 const roles_model_1 = require("./roles/roles.model");
 const user_roles_model_1 = require("./roles/user-roles.model");
+const auth_module_1 = require("./auth/auth.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -34,7 +35,7 @@ AppModule = __decorate([
                 database: process.env.POSTGRES_DB,
                 models: [user_model_1.User, roles_model_1.Role, user_roles_model_1.UserRoles],
                 autoLoadModels: true
-            }), users_module_1.UsersModule, roles_module_1.RolesModule
+            }), users_module_1.UsersModule, roles_module_1.RolesModule, auth_module_1.AuthModule
         ]
     })
 ], AppModule);

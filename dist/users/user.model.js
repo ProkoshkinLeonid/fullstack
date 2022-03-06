@@ -38,7 +38,7 @@ __decorate([
 ], User.prototype, "banned", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: 'Потому что', description: 'Причина бана', required: false }),
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING }),
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING, allowNull: true }),
     __metadata("design:type", String)
 ], User.prototype, "banReason", void 0);
 __decorate([

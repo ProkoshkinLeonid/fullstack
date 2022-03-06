@@ -18,7 +18,10 @@ const create_user_dto_1 = require("./dto/create-user.dto");
 const users_service_1 = require("./users.service");
 const swagger_1 = require("@nestjs/swagger");
 const user_model_1 = require("./user.model");
-const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const roles_auth_decorator_1 = require("../auth/roles-auth.decorator");
+const roles_guard_1 = require("../auth/roles.guard");
+const add_role_dto_1 = require("./dto/add-role.dto");
+const ban_user_dto_1 = require("./dto/ban-user.dto");
 let UsersController = class UsersController {
     constructor(userService) {
         this.userService = userService;
@@ -28,6 +31,12 @@ let UsersController = class UsersController {
     }
     getAll() {
         return this.userService.getAllUsers();
+    }
+    addRole(dto) {
+        return this.userService.addRole(dto);
+    }
+    ban(dto) {
+        return this.userService.ban(dto);
     }
 };
 __decorate([
@@ -42,12 +51,33 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Получение всех пользователей' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: [user_model_1.User] }),
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "getAll", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Выдать роль' }),
+    (0, swagger_1.ApiResponse)({ status: 200 }),
+    (0, roles_auth_decorator_1.Roles)('ADMIN'),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
+    (0, common_1.Post)('/role'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [add_role_dto_1.AddRoleDto]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "addRole", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Забанить пользователя' }),
+    (0, swagger_1.ApiResponse)({ status: 200 }),
+    (0, roles_auth_decorator_1.Roles)('ADMIN'),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
+    (0, common_1.Post)('/ban'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [ban_user_dto_1.BanUserDto]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "ban", null);
 UsersController = __decorate([
     (0, common_1.Controller)('/api/users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
